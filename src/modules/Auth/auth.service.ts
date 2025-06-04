@@ -18,4 +18,9 @@ export class AuthServices {
          if (error) throw error;
          return data.user;
     }
+    async RefreshToken(refreshToken : string){
+        const{data,error} = await this.services.getClient().auth.refreshSession({refresh_token : refreshToken})
+        if(error) throw error
+        return data.session
+    }
 }

@@ -1,10 +1,11 @@
 /* eslint-disable prettier/prettier */
 import { Controller, Get, UseGuards } from '@nestjs/common';
 import { CategoriesServices } from './categories.service';
-import { Database } from '../../database/supabase.types';
-import { JwtAuthGuard } from '../Auth/jwt-auth.guard';
 
-type Category = Database['public']['Tables']['categories']['Row'];
+import { JwtAuthGuard } from '../Auth/jwt-auth.guard';
+import { CategoryType } from 'src/database/supabase.types';
+
+
 
 @Controller('categories') // --> gọi /categories
 export class CategoriesController {
@@ -12,7 +13,7 @@ export class CategoriesController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  async findAll(): Promise<Category[]> {
+  async findAll(): Promise<CategoryType[]> {
     return this.categoriesService.findAll();
   }
 }

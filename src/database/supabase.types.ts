@@ -4,7 +4,7 @@ export interface Database {
     Tables: {
       categories: {
         Row: {
-          id: number;
+          id: string;
           name: string;
           description?: string;
           created_at?: string;
@@ -18,6 +18,23 @@ export interface Database {
           description?: string;
         };
       };
+      product:{
+       Row:{
+        id : string;
+        name : string;
+        description : string;
+        price : number;
+        stock : number;
+        image_url : string;
+        category : string;
+        category_id:string;
+       }
+      }
     };
   };
 }
+
+
+export type CategoryType = Database['public']['Tables']['categories']['Row'];
+
+export type ProductType = Database['public']['Tables']['product']['Row'];

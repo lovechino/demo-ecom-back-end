@@ -24,4 +24,9 @@ export class AuthController{
         }
         return data
     }
+    @Post('refresh')
+    async refresh(@Body("refresh_token") refreshtoken : string){
+        const responsive = await this.authServices.RefreshToken(refreshtoken)
+        return responsive
+    }
 }

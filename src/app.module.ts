@@ -1,9 +1,12 @@
 /* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config'; // 👈 thêm dòng này
-import { SupabaseService } from './database/supabase.service';
+// import { SupabaseService } from './database/supabase.service';
 import { CategoriesModule } from './modules/categories/categories.module';
 import { AuthModule } from './modules/Auth/auth.module';
+import { ProductModule } from './modules/products/product.module';
+import { CartModule } from './modules/cart/cart.module';
+import { CartModule } from './modules/cart/cart.module';
 
 
 @Module({
@@ -13,10 +16,12 @@ import { AuthModule } from './modules/Auth/auth.module';
       isGlobal: true, 
     }),
     CategoriesModule,
-    AuthModule
+    AuthModule,
+    ProductModule,
+    CartModule
    
   ],
-  providers: [SupabaseService],
-  exports: [SupabaseService],
+  // providers: [SupabaseService],
+  // exports: [SupabaseService],
 })
 export class AppModule {}
