@@ -6,7 +6,10 @@ import { CategoriesModule } from './modules/categories/categories.module';
 import { AuthModule } from './modules/Auth/auth.module';
 import { ProductModule } from './modules/products/product.module';
 import { CartModule } from './modules/cart/cart.module';
-import { CartModule } from './modules/cart/cart.module';
+import { PaymentModule } from './modules/payment/payment.module';
+import { OrderModule } from './modules/order/order.module';
+import { ProfileModule } from './modules/profile/profile.module';
+
 
 
 @Module({
@@ -18,10 +21,11 @@ import { CartModule } from './modules/cart/cart.module';
     CategoriesModule,
     AuthModule,
     ProductModule,
-    CartModule
+    CartModule,
+    PaymentModule,
+    OrderModule,
+    ProfileModule
    
   ],
-  // providers: [SupabaseService],
-  // exports: [SupabaseService],
 })
 export class AppModule {}
