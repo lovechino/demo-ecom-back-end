@@ -1,22 +1,39 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Delete, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Post, Req, UseGuards } from '@nestjs/common';
 import { CartService } from './cart.service';
+import { JwtAuthGuard } from '../Auth/jwt-auth.guard';
 
 @Controller('cart')
 export class CartController {
   constructor(private readonly cartService: CartService) {}
-  @Post(`GetCart/:id`)
-  async findcart(@Param('id') id: string){
-    return this.cartService.getcartbyid(id)
+
+  @UseGuards(JwtAuthGuard)
+  @Post(`GetCart`)
+  async findcart(@Req() req){
+     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+     const userId = req.user.sub; 
+     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+   const accessToken = req.headers.authorization?.split(' ')[1];
+   return this.cartService.getcartbyid(userId,accessToken)
   }
-  @Post('Insert/:id')
-  async insertCart(@Param('id') id : string, @Body() body : {product_id:string,quantity:number}){
+
+  @UseGuards(JwtAuthGuard)
+  @Post('Insert')
+  async insertCart( @Req() req, @Body() body : {product_id:string,quantity:number}){
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+    const userId = req.user.sub; 
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+    const accessToken = req.headers.authorization?.split(' ')[1];
     const{product_id,quantity} = body
-    return this.cartService.insertbyuser(id,product_id,quantity)
+    return this.cartService.insertbyuser(userId,product_id,quantity,accessToken)
   }
+
+  @UseGuards(JwtAuthGuard)
   @Delete('DeleteCart')
-  async deleteCart(@Body() body:{id:string}){
+  async deleteCart(@Req() req, @Body() body:{id:string}){
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+    const accessToken = req.headers.authorization?.split(' ')[1];
     const{id} = body
-    return this.cartService.deleteitem(id)
+    return this.cartService.deleteitem(id,accessToken)
   }
 }
