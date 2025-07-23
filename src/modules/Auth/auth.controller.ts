@@ -17,11 +17,15 @@ export class AuthController{
 
      @Post('signin')
     async signIn(@Body() body:{email:string,password:string}) {
-        const{email,password} = body
-        const{data,error} = await this.authServices.SingIn(email,password)
-        if(error){
-            throw new UnauthorizedException(error.message)
-        }
+        const { email, password } = body;
+        return await this.authServices.SingIn(email, password);
+    }
+    
+    @Post('forgotpassword')
+    async forgotPassword(@Body() body:{email:string}){
+        const{email} = body
+        const{data,error} = await this.authServices.ForgotPassword(email)
+        if(error) throw new UnauthorizedException(error.message)
         return data
     }
     @Post('refresh')

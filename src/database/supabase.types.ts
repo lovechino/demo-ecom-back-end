@@ -38,7 +38,6 @@ export interface Database {
           total_amount:number;
           shipping_address:string;
           created_at:Date;
-          ordercode : bigint
         }
       };
       order_items:{
@@ -48,6 +47,14 @@ export interface Database {
           product_id:string;
           quantity:number;
           unit_price:number
+        }
+      },
+      cart_items:{
+        Row:{
+          id:string;
+          user_id:string;
+          product_id:string;
+          quantity:number;
         }
       }
     };
@@ -62,3 +69,5 @@ export type ProductType = Database['public']['Tables']['product']['Row'];
 export type OrderType = Database['public']['Tables']['orders']['Row'];
 
 export type OrderItemsType = Database['public']['Tables']['order_items']['Row'];
+
+export type CartItemsType = Database['public']['Tables']['cart_items']['Row'];

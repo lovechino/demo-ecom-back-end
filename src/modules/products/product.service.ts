@@ -15,9 +15,18 @@ export class ProductServices{
         if(!data) return[]
         return data
     }
+
     async sortProduct(rise: boolean) : Promise<ProductType[]>{
         const supabase = this.services.getClient()
         const{data,error} : { data: ProductType[] | null; error: Error | null } = await supabase.from("productbycategory").select("*").order(`price`,{ascending : rise})
+        if(error) throw new InternalServerErrorException(error.message)
+        if(!data) return[]
+        return data
+    }
+
+    async getProductByCategoryId(id: string) : Promise<ProductType[]>{
+        const supabase = this.services.getClient()
+        const{data,error} : { data: ProductType[] | null; error: Error | null } = await supabase.from("productbycategory").select("*").eq("category_id",id)
         if(error) throw new InternalServerErrorException(error.message)
         if(!data) return[]
         return data

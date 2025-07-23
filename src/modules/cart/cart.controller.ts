@@ -29,6 +29,15 @@ export class CartController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Post('UpdateQuantity')
+  async updateQuantity(@Req() req, @Body() body:{id:string,quantity:number}){
+    const{id,quantity} = body
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+    const accessToken = req.headers.authorization?.split(' ')[1];
+    return this.cartService.updateQuantity(id,quantity,accessToken)
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Delete('DeleteCart')
   async deleteCart(@Req() req, @Body() body:{id:string}){
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access

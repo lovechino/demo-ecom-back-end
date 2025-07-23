@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Post } from "@nestjs/common";
+import { Body, Controller, Post } from "@nestjs/common";
 import { ProductServices } from "./product.service";
 import { ProductType } from "src/database/supabase.types";
 
@@ -13,6 +13,11 @@ export class ProductController{
     @Post("GetAllProduct")
     async GetAllProduct() : Promise<ProductType[]> {
         return this.services.findAll()
+    }
+
+    @Post("GetProductByCategoryId")
+    async GetProductByCategoryId(@Body() body: { category_id: string }) : Promise<ProductType[]> {
+        return this.services.getProductByCategoryId(body.category_id)
     }
 
 }

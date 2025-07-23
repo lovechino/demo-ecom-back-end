@@ -11,7 +11,6 @@ export class OrderHelper{
      async createOrder(
         token:string,
         user_id: string,
-        orderCode: number,
         shipping_address: string,
         total_amount: number,
         items: Array<{

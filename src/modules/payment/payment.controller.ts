@@ -20,4 +20,19 @@ export class PaymentController {
     return res.status(200).json({ received: true });
   }
 
+  @Post('info')
+  async getPaymentInfo(@Body('orderCode') orderCode: number) {
+    return this.paymentService.getPaymentLinkInfo(orderCode);
+  }
+
+  @Post('is-paid')
+  async isOrderPaid(@Body('orderCode') orderCode: number) {
+    return this.paymentService.isOrderPaid(orderCode);
+  }
+
+  @Post('cancel')
+  async cancelPayment(@Body('orderCode') orderCode: number) {
+    return this.paymentService.cancelPayment(orderCode);
+  }
+
 }

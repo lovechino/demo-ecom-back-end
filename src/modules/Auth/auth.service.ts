@@ -11,7 +11,20 @@ export class AuthServices {
         return this.services.getClient().auth.signUp({email,password})
     }
     async SingIn(email:string,password:string){
-        return this.services.getClient().auth.signInWithPassword({email,password})
+        try {
+            const { data, error } = await this.services
+              .getClient()
+              .auth.signInWithPassword({ email, password });
+              
+            if (error) throw error;
+            return data;
+          } catch (err) {
+            console.error("SignIn Error:", err);
+            throw err;
+          }
+    }
+    async ForgotPassword(email:string){
+        return this.services.getClient().auth.resetPasswordForEmail(email)
     }
     async GetUser(accessToken: string){
         const{data,error} = await this.services.getClient().auth.getUser(accessToken)
