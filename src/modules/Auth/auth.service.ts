@@ -17,7 +17,7 @@ export class AuthServices {
               .auth.signInWithPassword({ email, password });
               
             if (error) throw error;
-            return data;
+            return data.session;
           } catch (err) {
             console.error("SignIn Error:", err);
             throw err;

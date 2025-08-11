@@ -20,4 +20,9 @@ export class ProductController{
         return this.services.getProductByCategoryId(body.category_id)
     }
 
+    @Post("GetProductById")
+    async GetProductById(@Body() body: { id: string }) : Promise<ProductType[]> {
+        return this.services.getProductById(body.id)
+    }
+
 }

@@ -31,4 +31,11 @@ export class ProductServices{
         if(!data) return[]
         return data
     }
+    async getProductById(id: string) : Promise<ProductType[]>{
+        const supabase = this.services.getClient()
+        const{data,error} : { data: ProductType[] | null; error: Error | null } = await supabase.from("productbycategory").select("*").eq("id",id)
+        if(error) throw new InternalServerErrorException(error.message)
+        if(!data) return[]
+        return data
+    }
 }
