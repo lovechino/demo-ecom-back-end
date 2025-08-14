@@ -9,6 +9,7 @@ import { CartModule } from './modules/cart/cart.module';
 import { PaymentModule } from './modules/payment/payment.module';
 import { OrderModule } from './modules/order/order.module';
 import { ProfileModule } from './modules/profile/profile.module';
+import { RedisModule } from './database/redis.module';
 
 
 
@@ -24,7 +25,8 @@ import { ProfileModule } from './modules/profile/profile.module';
     CartModule,
     PaymentModule,
     OrderModule,
-    ProfileModule
+    ProfileModule,
+    RedisModule
    
   ],
 })
